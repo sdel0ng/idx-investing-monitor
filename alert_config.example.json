@@ -1,10 +1,27 @@
 {
-  "enabled": false,
-  "smtp_host": "smtp.gmail.com",
-  "smtp_port": 465,
-  "sender": "your.name@gmail.com",
-  "app_password": "xxxx xxxx xxxx xxxx",
-  "recipients": [
-    "your.name@gmail.com"
-  ]
+  "popup": {
+    "enabled": true
+  },
+  "send_daily_summary": false,
+  "ihsg_daily_call": {
+    "enabled": false
+  },
+  "email": {
+    "enabled": false,
+    "smtp_server": "smtp.gmail.com",
+    "smtp_port": 465,
+    "sender": "your.name@gmail.com",
+    "app_password": "xxxx xxxx xxxx xxxx",
+    "recipients": [
+      "your.name@gmail.com"
+    ],
+    "attach_chart": true
+  },
+  "whatsapp": {
+    "enabled": false,
+    "provider": "callmebot",
+    "phone": "+628xxxxxxxxxx",
+    "callmebot_apikey": "",
+    "fonnte_token": ""
+  }
 }

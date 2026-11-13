@@ -13,15 +13,15 @@ Personal swing-trading dashboard for the Indonesia Stock Exchange (IHSG), built 
 - Morning brief (08:00) and closing report (16:20) via Windows Task Scheduler
 - IDX tick-size and ARA/ARB rules, fees, position sizer, trade journal
 
-## Setup (Windows)
-```powershell
-python -m venv .venv
-.venv\Scripts\pip install -r requirements.txt
-copy portfolio.example.json portfolio.json        # then edit your holdings
-copy alert_config.example.json alert_config.json  # optional e-mail alerts (Gmail app password)
-.venv\Scripts\python desktop_app.py               # opens the app (http://127.0.0.1:8766)
-```
-`setup_new_pc.ps1` creates the venv, shortcuts and scheduled tasks on a new PC.
+## How to open the app (new PC)
+1. Install **Python 3.11+** from python.org - tick **"Add python.exe to PATH"** in the installer.
+2. On GitHub click **Code -> Download ZIP** and unzip it into its own folder, e.g. `C:\IDX\idx-investing-monitor`.
+3. In that folder, right-click **`setup_new_pc.ps1` -> Run with PowerShell** (one time, 1-3 minutes).
+   It installs the packages, makes the **IDX Investing Monitor** shortcuts and (optionally) the daily reports.
+4. Open the app: **Start Menu -> IDX Investing Monitor**, or double-click **`IDX Investing Monitor.vbs`**.
+
+To bring your own data from the old PC, copy `portfolio.json`, `transactions.json`, `trade_plans.json`,
+`price_alerts.json` and `alert_config.json` into the app folder (they are never uploaded to GitHub).
 
 ## Privacy
 Your holdings, journal, plans, alerts and e-mail settings stay local - they are listed in `.gitignore`.
