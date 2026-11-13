@@ -1,0 +1,56 @@
+{
+  "_note": "Macro theme -> IDX stocks map. direction: up = theme is on when the driver rises, down = when it falls. Edit stocks freely (IDX codes without .JK).",
+  "min_avg_value_bn": 10,
+  "themes": [
+    {
+      "id": "gold_up", "name": "Gold rally", "driver": "GC=F", "driver_name": "Gold (XAU)", "direction": "up",
+      "why": "Higher gold prices lift revenue and margins of gold miners and gold-jewellery retailers almost one-for-one.",
+      "stocks": ["ANTM", "MDKA", "EMAS", "ARCI", "BRMS", "PSAB", "HRTA", "AMMN", "UNTR"]
+    },
+    {
+      "id": "copper_up", "name": "Copper / base-metals rally", "driver": "HG=F", "driver_name": "Copper (nickel proxy)", "direction": "up",
+      "why": "Copper is the best free proxy for base metals and global growth; it drives copper-gold miners and moves with nickel and tin sentiment.",
+      "stocks": ["AMMN", "MDKA", "INCO", "NCKL", "MBMA", "TINS", "ANTM"]
+    },
+    {
+      "id": "oil_up", "name": "Oil rally", "driver": "BZ=F", "driver_name": "Brent oil", "direction": "up",
+      "why": "Upstream oil & gas producers and oilfield services earn more when crude rises.",
+      "stocks": ["MEDC", "ENRG", "ELSA", "RAJA", "AKRA", "PGAS"]
+    },
+    {
+      "id": "oil_down", "name": "Oil falling", "driver": "BZ=F", "driver_name": "Brent oil", "direction": "down",
+      "why": "Cheaper oil cuts fuel and logistics costs, eases inflation and fuel-subsidy pressure on the rupiah - good for consumers, retail and transport.",
+      "stocks": ["ICBP", "INDF", "MYOR", "MAPI", "ACES", "ASSA", "BIRD", "CPIN"]
+    },
+    {
+      "id": "cpo_up", "name": "Palm oil rally", "driver": "ZL=F", "driver_name": "Soybean oil (CPO proxy)", "direction": "up",
+      "why": "Vegetable-oil prices move together; higher prices lift plantation earnings.",
+      "stocks": ["AALI", "LSIP", "TAPG", "DSNG", "SSMS"]
+    },
+    {
+      "id": "china_up", "name": "China / Hong Kong rebound", "driver": "^HSI", "driver_name": "Hang Seng", "direction": "up",
+      "why": "China is the main buyer of Indonesian coal and nickel; a China rebound lifts demand expectations for commodity exporters.",
+      "stocks": ["AADI", "PTBA", "ITMG", "ADRO", "INDY", "INCO", "NCKL", "MBMA"]
+    },
+    {
+      "id": "rupiah_strong", "name": "Rupiah strengthening", "driver": "IDR=X", "driver_name": "USD/IDR", "direction": "down",
+      "why": "A stronger rupiah brings foreign inflows into big banks and helps importers and consumer names with dollar costs.",
+      "stocks": ["BBCA", "BBRI", "BMRI", "BBNI", "ASII", "ICBP", "BSDE"]
+    },
+    {
+      "id": "rupiah_weak", "name": "Rupiah weakening", "driver": "IDR=X", "driver_name": "USD/IDR", "direction": "up",
+      "why": "Exporters with dollar revenue and rupiah costs (pulp & paper, coal, plantations) gain when the rupiah weakens.",
+      "stocks": ["INKP", "TKIM", "AADI", "PTBA", "ITMG", "ADRO", "TAPG"]
+    },
+    {
+      "id": "yields_down", "name": "US yields falling", "driver": "^TNX", "driver_name": "US 10-year yield", "direction": "down",
+      "why": "Lower global yields make Indonesian banks, property and dividend payers more attractive and raise rate-cut hopes.",
+      "stocks": ["BBCA", "BBRI", "BMRI", "BBNI", "BSDE", "CTRA", "PWON", "SMRA", "TLKM"]
+    },
+    {
+      "id": "risk_off", "name": "Risk-off shelter", "driver": "^VIX", "driver_name": "VIX", "direction": "up",
+      "why": "When fear rises, money hides in defensive staples, healthcare and telco - they usually fall less.",
+      "stocks": ["TLKM", "ICBP", "INDF", "KLBF", "SIDO", "MYOR"]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "_note": "Broker codes used to classify broksum flow. Based on common IDX usage - VERIFY against your broker app and edit freely. Categories: foreign_inst (foreign institutional desks), local_inst (local institutional / fund desks), retail (retail-dominated apps). Codes not listed are treated as 'unknown'. Several brokers carry mixed flow (e.g. CC, YP, AI, TP), so treat the classification as a guide, not a fact.",
+  "foreign_inst": {
+    "AK": "UBS Sekuritas Indonesia",
+    "BK": "J.P. Morgan Sekuritas Indonesia",
+    "ZP": "Maybank Sekuritas Indonesia",
+    "KZ": "CLSA Sekuritas Indonesia",
+    "RX": "Macquarie Sekuritas Indonesia",
+    "YU": "CGS International Sekuritas Indonesia",
+    "CG": "Citigroup Sekuritas Indonesia",
+    "GW": "HSBC Sekuritas Indonesia",
+    "DP": "DBS Vickers Sekuritas Indonesia",
+    "AI": "UOB Kay Hian Sekuritas",
+    "TP": "OCBC Sekuritas Indonesia"
+  },
+  "local_inst": {
+    "CC": "Mandiri Sekuritas",
+    "NI": "BNI Sekuritas",
+    "SQ": "BCA Sekuritas",
+    "OD": "BRI Danareksa Sekuritas",
+    "DX": "Bahana Sekuritas",
+    "LG": "Trimegah Sekuritas",
+    "KI": "Ciptadana Sekuritas",
+    "HP": "Henan Putihrai Sekuritas",
+    "IF": "Samuel Sekuritas Indonesia"
+  },
+  "retail": {
+    "YP": "Mirae Asset Sekuritas",
+    "XL": "Stockbit Sekuritas",
+    "XC": "Ajaib Sekuritas",
+    "PD": "Indo Premier Sekuritas",
+    "KK": "Phillip Sekuritas Indonesia",
+    "EP": "MNC Sekuritas"
+  }
+}

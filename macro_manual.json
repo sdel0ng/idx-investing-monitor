@@ -1,0 +1,9 @@
+{
+  "_note": "Domestic macro facts that have no free live feed. Update by hand when they change (BI meeting, MSCI news).",
+  "as_of": "28 Oct 2026",
+  "items": [
+    {"name": "BI rate", "value": "5.75%", "note": "Deposit facility 5.00%. A cut would support banks and property; a hike defends the rupiah."},
+    {"name": "Reserve requirement (RRR)", "value": "cut, adds ~Rp190T liquidity", "note": "Supports bank lending and loan growth."},
+    {"name": "MSCI Indonesia decision", "value": "30 Jun 2027", "note": "Risk of a downgrade from Emerging to Standalone market - the cause of the October shock. Main overhang for foreign flows and big caps."}
+  ]
+}

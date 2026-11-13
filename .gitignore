@@ -1,0 +1,36 @@
+# --- private: never commit ---
+alert_config.json
+portfolio.json
+transactions.json
+positions.json
+trade_plans.json
+price_alerts.json
+favorites.json
+app_settings.json
+*_state.json
+*.log
+
+# --- generated data / reports (rebuilt by the app) ---
+reports/
+data/
+broksum/
+*.png
+!app_icon.png
+*.csv
+*_summary.json
+all_stocks.json
+macro_ideas.json
+market_context.json
+BMRI_latest_report.txt
+*.pptx
+
+# --- python / build ---
+__pycache__/
+*.pyc
+.venv/
+venv/
+build/
+dist/
+*.exe
+*.spec
+run_*.bat

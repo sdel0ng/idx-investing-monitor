@@ -1,0 +1,187 @@
+{
+  "_note": "Edit freely. shares_bn = shares outstanding in billions (used only for market cap, approximate). class: Defensive / Semi-defensive / Cyclical.",
+  "stocks": [
+    {
+      "code": "TLKM",
+      "name": "Telkom Indonesia",
+      "sector": "Telecom",
+      "class": "Defensive",
+      "shares_bn": 99.06
+    },
+    {
+      "code": "ISAT",
+      "name": "Indosat Ooredoo Hutchison",
+      "sector": "Telecom",
+      "class": "Defensive",
+      "shares_bn": 32.25
+    },
+    {
+      "code": "MTEL",
+      "name": "Dayamitra Telekomunikasi (Mitratel)",
+      "sector": "Telecom towers",
+      "class": "Defensive",
+      "shares_bn": 83.56
+    },
+    {
+      "code": "TOWR",
+      "name": "Sarana Menara Nusantara",
+      "sector": "Telecom towers",
+      "class": "Defensive",
+      "shares_bn": 51.01
+    },
+    {
+      "code": "ICBP",
+      "name": "Indofood CBP Sukses Makmur",
+      "sector": "Consumer staples",
+      "class": "Defensive",
+      "shares_bn": 11.66
+    },
+    {
+      "code": "INDF",
+      "name": "Indofood Sukses Makmur",
+      "sector": "Consumer staples",
+      "class": "Defensive",
+      "shares_bn": 8.78
+    },
+    {
+      "code": "UNVR",
+      "name": "Unilever Indonesia",
+      "sector": "Consumer staples",
+      "class": "Defensive",
+      "shares_bn": 38.15
+    },
+    {
+      "code": "MYOR",
+      "name": "Mayora Indah",
+      "sector": "Consumer staples",
+      "class": "Defensive",
+      "shares_bn": 22.36
+    },
+    {
+      "code": "HMSP",
+      "name": "HM Sampoerna",
+      "sector": "Tobacco",
+      "class": "Defensive",
+      "shares_bn": 116.32
+    },
+    {
+      "code": "GGRM",
+      "name": "Gudang Garam",
+      "sector": "Tobacco",
+      "class": "Defensive",
+      "shares_bn": 1.924
+    },
+    {
+      "code": "KLBF",
+      "name": "Kalbe Farma",
+      "sector": "Healthcare",
+      "class": "Defensive",
+      "shares_bn": 46.875
+    },
+    {
+      "code": "SIDO",
+      "name": "Industri Jamu Sido Muncul",
+      "sector": "Healthcare",
+      "class": "Defensive",
+      "shares_bn": 30.0
+    },
+    {
+      "code": "AMRT",
+      "name": "Sumber Alfaria Trijaya (Alfamart)",
+      "sector": "Retail (staples)",
+      "class": "Defensive",
+      "shares_bn": 41.52
+    },
+    {
+      "code": "PGAS",
+      "name": "Perusahaan Gas Negara",
+      "sector": "Gas utility",
+      "class": "Defensive",
+      "shares_bn": 24.24
+    },
+    {
+      "code": "JSMR",
+      "name": "Jasa Marga",
+      "sector": "Toll roads",
+      "class": "Defensive",
+      "shares_bn": 7.258
+    },
+    {
+      "code": "BBCA",
+      "name": "Bank Central Asia",
+      "sector": "Banks",
+      "class": "Semi-defensive",
+      "shares_bn": 123.28
+    },
+    {
+      "code": "BBRI",
+      "name": "Bank Rakyat Indonesia",
+      "sector": "Banks",
+      "class": "Semi-defensive",
+      "shares_bn": 151.56
+    },
+    {
+      "code": "BBNI",
+      "name": "Bank Negara Indonesia",
+      "sector": "Banks",
+      "class": "Semi-defensive",
+      "shares_bn": 37.3
+    },
+    {
+      "code": "BRIS",
+      "name": "Bank Syariah Indonesia",
+      "sector": "Banks",
+      "class": "Semi-defensive",
+      "shares_bn": 46.13
+    },
+    {
+      "code": "CPIN",
+      "name": "Charoen Pokphand Indonesia",
+      "sector": "Poultry / feed",
+      "class": "Semi-defensive",
+      "shares_bn": 16.4
+    },
+    {
+      "code": "AKRA",
+      "name": "AKR Corporindo",
+      "sector": "Fuel distribution",
+      "class": "Semi-defensive",
+      "shares_bn": 19.74
+    },
+    {
+      "code": "ASII",
+      "name": "Astra International",
+      "sector": "Conglomerate / autos",
+      "class": "Cyclical",
+      "shares_bn": 40.48
+    },
+    {
+      "code": "UNTR",
+      "name": "United Tractors",
+      "sector": "Heavy equipment / mining",
+      "class": "Cyclical",
+      "shares_bn": 3.73
+    },
+    {
+      "code": "PTBA",
+      "name": "Bukit Asam",
+      "sector": "Coal",
+      "class": "Cyclical",
+      "shares_bn": 11.52
+    },
+    {
+      "code": "ITMG",
+      "name": "Indo Tambangraya Megah",
+      "sector": "Coal",
+      "class": "Cyclical",
+      "shares_bn": 1.13
+    },
+    {
+      "code": "ADRO",
+      "name": "Alamtri Resources (ex-Adaro)",
+      "sector": "Coal / minerals",
+      "class": "Cyclical",
+      "shares_bn": 30.76
+    }
+  ]
+}

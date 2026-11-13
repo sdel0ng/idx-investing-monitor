@@ -1,0 +1,5 @@
+pandas
+matplotlib
+python-pptx
+flask
+pywebview
