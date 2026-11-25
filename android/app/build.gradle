@@ -1,0 +1,51 @@
+plugins {
+    id 'com.android.application'
+}
+
+// Version comes from the GitHub Actions run number (falls back to 1 / 1.0.0 for local builds)
+def appVersionCode = (System.getenv("APP_VERSION_CODE") ?: "1").toInteger()
+def appVersionName = System.getenv("APP_VERSION_NAME") ?: "1.0.0"
+
+// Optional stable signing key (GitHub secrets). Without it the APK is signed with a debug key.
+def keystorePath = System.getenv("SIGNING_KEYSTORE_PATH")
+
+android {
+    namespace 'com.sdel0ng.idxmonitor'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'com.sdel0ng.idxmonitor'
+        minSdk 24
+        targetSdk 34
+        versionCode appVersionCode
+        versionName appVersionName
+    }
+
+    if (keystorePath) {
+        signingConfigs {
+            release {
+                storeFile file(keystorePath)
+                storePassword System.getenv("SIGNING_STORE_PASSWORD")
+                keyAlias System.getenv("SIGNING_KEY_ALIAS")
+                keyPassword System.getenv("SIGNING_KEY_PASSWORD")
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig keystorePath ? signingConfigs.release : signingConfigs.debug
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+}

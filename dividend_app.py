@@ -35,6 +35,9 @@ import trade_tools
 
 PORT = 8766
 app = Flask(__name__)
+import phone_access
+from version import VERSION
+phone_access.install(app)   # PIN login for phones (off by default), home-screen icon + manifest
 job = {"running": False, "message": "", "finished": None}
 job_lock = threading.Lock()
 
@@ -319,7 +322,7 @@ poll();
         f"<a href='{href}' class='{'active' if (path == href or (href != '/' and path.startswith(href) and not (href == '/stocks')) or (href == '/all' and path.startswith('/stock/')) or (href == '/dividends' and path == '/stocks')) else ''}'>{label}</a>"
         for href, label in NAV
     )
-    return f"""<!doctype html><html><head><meta charset="utf-8"><title>{esc(title)} · IDX Monitor</title>
+    return f"""<!doctype html><html><head><meta charset="utf-8">{phone_access.HEAD_TAGS}<title>{esc(title)} · IDX Monitor</title>
 <style>{STYLE}</style><link rel="stylesheet" href="/static/app.css">
 <script src="/static/lightweight-charts.js"></script><script src="/static/ta.js"></script><script src="/static/live.js"></script></head><body>
 <header>
@@ -337,7 +340,7 @@ poll();
 <main>{body}<p class="muted footer-note">Live prices: TradingView scanner; charts: Yahoo Finance - both free and delayed about
 10 minutes for IDX (not true real-time). Analysis pages use daily data rebuilt by Refresh / the 16:20 task. Dividends are never
 guaranteed - confirm on IDX announcements. Charts: TradingView Lightweight Charts™. Company logos: TradingView.
-Education only, not financial advice.</p></main>{poll}</body></html>"""
+Education only, not financial advice. · IDX Investing Monitor v{VERSION}</p></main>{poll}</body></html>"""
 
 
 @app.route("/dividends")
@@ -1324,7 +1327,7 @@ def main():
         start_refresh()
     if open_browser:
         threading.Timer(1.2, lambda: webbrowser.open(url)).start()
-    app.run(host="127.0.0.1", port=PORT, debug=False, use_reloader=False)
+    app.run(host=phone_access.bind_host(), port=PORT, debug=False, use_reloader=False)
 
 
 if __name__ == "__main__":

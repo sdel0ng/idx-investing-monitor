@@ -534,8 +534,9 @@ def register(app, page, esc, portfolio_page_html):
         rows = "".join(
             f"<tr><td>{esc(t['date'])}</td><td><a href='/stock/{esc(t['code'])}'><b>{esc(t['code'])}</b></a></td>"
             f"<td><span class='pill-{'green' if t['side'] == 'buy' else 'red'}'>{t['side'].upper()}</span></td>"
-            f"<td class='num'>{t['price']:,.0f}</td><td class='num'>{t['lots']:,}</td><td class='num'>{t['gross']:,.0f}</td>"
-            f"<td class='num'>{t.get('fee', 0):,.0f}</td><td class='num'>{money(t.get('realized'))}</td>"
+            f"<td class='num'>{t['price']:,.0f}</td><td class='num'>{'–' if t.get('lots') is None else format(t['lots'], ',')}</td>"
+            f"<td class='num'>{'–' if t.get('gross') is None else format(t['gross'], ',.0f')}</td>"
+            f"<td class='num'>{'–' if t.get('fee') is None else format(t['fee'], ',.0f')}</td><td class='num'>{money(t.get('realized'))}</td>"
             f"<td class='num'>{'' if t.get('realized_pct') is None else money(t['realized_pct']).replace('</span>', '%</span>')}</td>"
             f"<td class='small'>{esc(t.get('note', ''))}</td>"
             f"<td><form method='post' onsubmit=\"return confirm('Remove this log line? Holdings are not changed.')\">"
@@ -590,6 +591,39 @@ document.addEventListener('DOMContentLoaded', () => {{
         return page("Journal", body)
 
     # ------------------------------------------------------------------ alerts page
+    @app.route("/api/flow-watch")
+    def api_flow_watch():
+        import flow_watch
+        return jsonify(flow_watch.status())
+
+    def flow_watch_card() -> str:
+        import flow_watch
+        try:
+            items = flow_watch.status()
+        except Exception as error:
+            return f"<div class='card'><h2>🏦 Index flow watch</h2><p class='muted'>Unavailable: {esc(str(error))}</p></div>"
+        if not items:
+            return ""
+        colours = {"faded": "var(--green, #22c55e)", "early": "#38bdf8", "failed": "var(--red, #ef4444)", "event_day": "#f59e0b"}
+        blocks = []
+        for item in items:
+            rows = "".join(
+                f"<tr><td>{'✅' if c['ok'] else '⬜'}</td><td>{esc(c['label'])}</td><td class='muted small'>{esc(c['detail'])}</td></tr>"
+                for c in item.get("conditions", [])
+            )
+            stage = item.get("stage")
+            badge = (f"<b style='color:{colours.get(stage, '#94a3b8')}'>{esc((stage or 'pressure on').replace('_', ' ').upper())}</b>")
+            blocks.append(
+                f"<div style='margin-bottom:10px'><a href='/stock/{esc(item['code'])}'><b>{esc(item['code'])}</b></a> · {badge}"
+                f" <span class='muted small'>{esc(item.get('event', ''))} · effective {esc(item.get('effective', ''))}"
+                f" · last session {esc(item.get('last_session', ''))}</span>"
+                f"<p class='small'>{esc(item.get('stage_text') or item.get('note', ''))}</p>"
+                f"<table class='mini'><tbody>{rows}</tbody></table></div>"
+            )
+        return ("<div class='card'><h2>🏦 Index flow watch</h2>" + "".join(blocks) +
+                "<p class='muted small'>Judged on completed daily sessions (no free foreign/broker-flow data). "
+                "Pops up once per stage: event day → early sign → FADED (or failed). Edit flow_watch.json to change levels.</p></div>")
+
     @app.route("/alerts", methods=["GET", "POST"])
     def alerts_page():
         message = ""
@@ -634,6 +668,7 @@ document.addEventListener('DOMContentLoaded', () => {{
   <button class="btn">Add alert</button>
   <span class="muted">Tip: on any chart click 🔔 Alert, then click a price.</span>
 </form>
+{flow_watch_card()}
 <div class="card"><h2>Active alerts</h2><table class="mini"><thead><tr><th>Code</th><th>Condition</th><th class="num">Price</th>
 <th class="num">Today</th><th class="num">Distance</th><th>Note</th><th>Created</th><th></th></tr></thead><tbody>{active_rows}</tbody></table></div>
 <div class="card"><h2>Triggered</h2><table class="mini"><thead><tr><th>Code</th><th>Condition</th><th class="num">At</th><th>When</th>
@@ -645,14 +680,50 @@ when the app is closed. Prices are ~10 minutes delayed, so set alerts with some 
     # ------------------------------------------------------------------ settings
     @app.route("/settings", methods=["GET", "POST"])
     def settings_page():
+        import phone_access
         message = ""
-        if request.method == "POST":
+        if request.method == "POST" and request.form.get("form") == "phone":
+            if request.remote_addr not in ("127.0.0.1", "::1"):
+                message = "Phone access can only be changed on the PC."
+            else:
+                try:
+                    was_on = phone_access.enabled()
+                    phone_access.update(request.form.get("enabled") == "1", request.form.get("pin", ""))
+                    now_on = phone_access.enabled()
+                    message = "Phone access saved." + (" Close and reopen the app to apply it." if was_on != now_on else "")
+                except Exception as error:
+                    message = f"Not saved: {error}"
+        elif request.method == "POST":
             try:
                 trade_tools.save_settings(request.form.to_dict())
                 message = "Settings saved."
             except Exception as error:
                 message = f"Not saved: {error}"
         s = trade_tools.load_settings()
+        phone = phone_access.load()
+        phone_on = phone_access.enabled()
+        addresses = phone_access.lan_addresses()
+        urls = "".join(f"<li><b>http://{esc(ip)}:8766</b></li>" for ip in addresses) or "<li>No network address found</li>"
+        phone_card = f"""
+<form method="post" class="card" style="max-width:720px;margin-top:16px">
+  <input type="hidden" name="form" value="phone">
+  <h2>📱 Phone access (iPhone / Android)</h2>
+  <div class="regime-label {'green' if phone_on else 'grey'}" style="font-size:14px">{'ON - phones can open the app with your PIN' if phone_on else 'OFF - the app only works on this PC'}</div>
+  <div class="filters" style="border:0;background:none;box-shadow:none;padding:0;margin-top:10px">
+    <label><input type="checkbox" name="enabled" value="1" {'checked' if phone.get('enabled') else ''}> Allow my phone to open the app</label>
+    <label>{'New PIN (leave empty to keep)' if phone.get('pin_hash') else 'PIN (4-12 digits)'}<input name="pin" type="password" inputmode="numeric" size="10" autocomplete="new-password"></label>
+  </div>
+  <button class="btn">Save</button>
+  <ol class="muted" style="margin-top:10px;line-height:1.6">
+    <li>Use this at <b>home on your own Wi-Fi</b> (not on an office or public network). Windows may ask to allow Python through the
+      firewall - allow it on <b>Private</b> networks only.</li>
+    <li>After switching on, close and reopen the app. On the iPhone (same Wi-Fi) open Safari at:<ul>{urls}</ul></li>
+    <li>Enter your PIN, then tap <b>Share → Add to Home Screen</b>. It opens full-screen with its own icon.</li>
+    <li>Away from home: install the free <b>Tailscale</b> app on the PC and the iPhone (same account) and use the PC's Tailscale
+      address (100.x.x.x) instead. Do not open this port on your router to the internet.</li>
+    <li>The PC must be on with the app open - the phone shows the PC's data (prices ~10 min delayed).</li>
+  </ol>
+</form>"""
         body = f"""
 {f"<div class='notice'>{esc(message)}</div>" if message else ""}
 <form method="post" class="card" style="max-width:720px">
@@ -666,7 +737,7 @@ when the app is closed. Prices are ~10 minutes delayed, so set alerts with some 
   <button class="btn">Save</button>
   <p class="muted">Fees differ per broker - check yours (Stockbit, Ajaib, IPOT, Mirae…). Capital and risk % drive the position sizer
   on each stock page: lots = (capital × risk %) ÷ ((entry − stop) × 100). A common rule is risking 0.5–2% per trade.</p>
-</form>"""
+</form>{phone_card}"""
         return page("Settings", body)
 
     # ------------------------------------------------------------------ morning / closing reports

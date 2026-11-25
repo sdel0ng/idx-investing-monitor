@@ -354,7 +354,8 @@
     taBox.className = 'lc-ta-box';
     box.appendChild(zoneLayer);
     box.appendChild(taBox);
-    let ta = null, taLines = [], taCollapsed = localStorage.getItem('lc-ta-collapsed') === '1';
+    let ta = null, taLines = [], taCollapsed = localStorage.getItem('lc-ta-collapsed') === '1'
+      || (localStorage.getItem('lc-ta-collapsed') === null && window.matchMedia('(max-width: 760px)').matches);
 
     function positionZones() {
       zoneLayer.innerHTML = '';

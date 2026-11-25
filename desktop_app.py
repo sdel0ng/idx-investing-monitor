@@ -66,7 +66,9 @@ def message_box(text: str) -> None:
 class ServerThread(threading.Thread):
     def __init__(self, app):
         super().__init__(daemon=True)
-        self.server = make_server("127.0.0.1", PORT, app, threaded=True)
+        import phone_access
+        # 127.0.0.1 only, unless Phone access is switched on in Settings (then the phone can reach it, PIN required)
+        self.server = make_server(phone_access.bind_host(), PORT, app, threaded=True)
 
     def run(self):
         self.server.serve_forever()

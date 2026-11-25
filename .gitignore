@@ -1,5 +1,7 @@
 # --- private: never commit ---
 alert_config.json
+phone_access.json
+flow_watch.json
 portfolio.json
 transactions.json
 positions.json
@@ -34,3 +36,10 @@ dist/
 *.exe
 *.spec
 run_*.bat
+
+# --- android app ---
+!android/app/src/main/res/**/*.png
+android/.gradle/
+android/local.properties
+*.jks
+*.keystore

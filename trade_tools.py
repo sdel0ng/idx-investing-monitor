@@ -525,6 +525,7 @@ def check_alerts(show_popup=None) -> list:
 def start_alert_checker(show_popup=None, interval: int = 30) -> None:
     def loop():
         last_macro_check = 0
+        last_flow_check = 0
         while True:
             try:
                 if live_data.market_status()["state"] in ("open", "pre", "break"):
@@ -534,6 +535,14 @@ def start_alert_checker(show_popup=None, interval: int = 30) -> None:
                         check_macro_rules(show_popup)
             except Exception:
                 pass
+            # index-rebalance flow watch: judged on completed daily sessions, so it also runs after the close
+            if time.time() - last_flow_check > 15 * 60:
+                last_flow_check = time.time()
+                try:
+                    import flow_watch
+                    flow_watch.check(show_popup, fired_events)
+                except Exception:
+                    pass
             time.sleep(interval)
 
     threading.Thread(target=loop, daemon=True, name="alert-checker").start()
@@ -621,7 +630,7 @@ def journal_stats() -> dict:
         "trades": len(transactions),
         "closed": len(sells),
         "realized": sum(t["realized"] for t in sells),
-        "fees": sum(t.get("fee", 0) for t in transactions),
+        "fees": sum(t.get("fee") or 0 for t in transactions),
         "win_rate": round(len(wins) / len(sells) * 100) if sells else None,
         "avg_win": round(gross_win / len(wins)) if wins else None,
         "avg_loss": round(-gross_loss / len(losses)) if losses else None,
